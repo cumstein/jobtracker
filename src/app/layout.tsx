@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
+import { BriefcaseBusiness } from "lucide-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +29,28 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <main className="flex flex-col justify-between min-h-screen">
+          <header className="fixed flex justify-between items-center shadow-xl bg-white px-3 md:px-20 w-full h-20 z-40 ">
+            <div className="flex items-center gap-3">
+              <BriefcaseBusiness />
+              <Link href="/" className="font-bold md:text-2xl text-xl">
+                JobTracker
+              </Link>
+            </div>
+            <div className="flex items-center gap-8 ">
+              <div>Dark Mode</div>
+              <div>
+                <Link href={"/register"}>Login</Link>
+              </div>
+            </div>
+          </header>
+          <div className="px-20 mt-28">{children}</div>
+          <footer>
+            <p className="bg-black w-full text-white flex items-center justify-center h-10">
+              &copy; Developed by Cumstein
+            </p>
+          </footer>
+        </main>
       </body>
     </html>
   );
