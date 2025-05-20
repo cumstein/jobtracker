@@ -6189,7 +6189,7 @@ export namespace Prisma {
     status: $Enums.JobStatus
     createdAt: Date
     updatedAt: Date
-    userId: string | null
+    userId: string
     _count: JobCountAggregateOutputType | null
     _min: JobMinAggregateOutputType | null
     _max: JobMaxAggregateOutputType | null
@@ -6220,7 +6220,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
-    user?: boolean | Job$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     tags?: boolean | Job$tagsArgs<ExtArgs>
     notes?: boolean | Job$notesArgs<ExtArgs>
     reminders?: boolean | Job$remindersArgs<ExtArgs>
@@ -6238,7 +6238,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
-    user?: boolean | Job$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["job"]>
 
   export type JobSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6252,7 +6252,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
-    user?: boolean | Job$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["job"]>
 
   export type JobSelectScalar = {
@@ -6270,23 +6270,23 @@ export namespace Prisma {
 
   export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "company" | "description" | "location" | "url" | "status" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["job"]>
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | Job$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     tags?: boolean | Job$tagsArgs<ExtArgs>
     notes?: boolean | Job$notesArgs<ExtArgs>
     reminders?: boolean | Job$remindersArgs<ExtArgs>
     _count?: boolean | JobCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type JobIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | Job$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type JobIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | Job$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $JobPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Job"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
       tags: Prisma.$TagPayload<ExtArgs>[]
       notes: Prisma.$NotePayload<ExtArgs>[]
       reminders: Prisma.$ReminderPayload<ExtArgs>[]
@@ -6301,7 +6301,7 @@ export namespace Prisma {
       status: $Enums.JobStatus
       createdAt: Date
       updatedAt: Date
-      userId: string | null
+      userId: string
     }, ExtArgs["result"]["job"]>
     composites: {}
   }
@@ -6696,7 +6696,7 @@ export namespace Prisma {
    */
   export interface Prisma__JobClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends Job$userArgs<ExtArgs> = {}>(args?: Subset<T, Job$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     tags<T extends Job$tagsArgs<ExtArgs> = {}>(args?: Subset<T, Job$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notes<T extends Job$notesArgs<ExtArgs> = {}>(args?: Subset<T, Job$notesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reminders<T extends Job$remindersArgs<ExtArgs> = {}>(args?: Subset<T, Job$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7132,25 +7132,6 @@ export namespace Prisma {
      * Limit how many Jobs to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Job.user
-   */
-  export type Job$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
   }
 
   /**
@@ -10921,8 +10902,8 @@ export namespace Prisma {
     status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
-    userId?: StringNullableFilter<"Job"> | string | null
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    userId?: StringFilter<"Job"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     tags?: TagListRelationFilter
     notes?: NoteListRelationFilter
     reminders?: ReminderListRelationFilter
@@ -10938,7 +10919,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    userId?: SortOrderInput | SortOrder
+    userId?: SortOrder
     user?: UserOrderByWithRelationInput
     tags?: TagOrderByRelationAggregateInput
     notes?: NoteOrderByRelationAggregateInput
@@ -10958,8 +10939,8 @@ export namespace Prisma {
     status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
-    userId?: StringNullableFilter<"Job"> | string | null
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    userId?: StringFilter<"Job"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     tags?: TagListRelationFilter
     notes?: NoteListRelationFilter
     reminders?: ReminderListRelationFilter
@@ -10975,7 +10956,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    userId?: SortOrderInput | SortOrder
+    userId?: SortOrder
     _count?: JobCountOrderByAggregateInput
     _max?: JobMaxOrderByAggregateInput
     _min?: JobMinOrderByAggregateInput
@@ -10994,7 +10975,7 @@ export namespace Prisma {
     status?: EnumJobStatusWithAggregatesFilter<"Job"> | $Enums.JobStatus
     createdAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
-    userId?: StringNullableWithAggregatesFilter<"Job"> | string | null
+    userId?: StringWithAggregatesFilter<"Job"> | string
   }
 
   export type TagWhereInput = {
@@ -11455,7 +11436,7 @@ export namespace Prisma {
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    user?: UserCreateNestedOneWithoutJobsInput
+    user: UserCreateNestedOneWithoutJobsInput
     tags?: TagCreateNestedManyWithoutJobsInput
     notes?: NoteCreateNestedManyWithoutJobInput
     reminders?: ReminderCreateNestedManyWithoutJobInput
@@ -11471,7 +11452,7 @@ export namespace Prisma {
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    userId?: string | null
+    userId: string
     tags?: TagUncheckedCreateNestedManyWithoutJobsInput
     notes?: NoteUncheckedCreateNestedManyWithoutJobInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutJobInput
@@ -11487,7 +11468,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutJobsNestedInput
+    user?: UserUpdateOneRequiredWithoutJobsNestedInput
     tags?: TagUpdateManyWithoutJobsNestedInput
     notes?: NoteUpdateManyWithoutJobNestedInput
     reminders?: ReminderUpdateManyWithoutJobNestedInput
@@ -11503,7 +11484,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     tags?: TagUncheckedUpdateManyWithoutJobsNestedInput
     notes?: NoteUncheckedUpdateManyWithoutJobNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutJobNestedInput
@@ -11519,7 +11500,7 @@ export namespace Prisma {
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    userId?: string | null
+    userId: string
   }
 
   export type JobUpdateManyMutationInput = {
@@ -11544,7 +11525,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type TagCreateInput = {
@@ -12042,11 +12023,6 @@ export namespace Prisma {
     not?: NestedEnumJobStatusFilter<$PrismaModel> | $Enums.JobStatus
   }
 
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
-  }
-
   export type TagListRelationFilter = {
     every?: TagWhereInput
     some?: TagWhereInput
@@ -12431,12 +12407,10 @@ export namespace Prisma {
     set?: $Enums.JobStatus
   }
 
-  export type UserUpdateOneWithoutJobsNestedInput = {
+  export type UserUpdateOneRequiredWithoutJobsNestedInput = {
     create?: XOR<UserCreateWithoutJobsInput, UserUncheckedCreateWithoutJobsInput>
     connectOrCreate?: UserCreateOrConnectWithoutJobsInput
     upsert?: UserUpsertWithoutJobsInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJobsInput, UserUpdateWithoutJobsInput>, UserUncheckedUpdateWithoutJobsInput>
   }
@@ -12896,7 +12870,7 @@ export namespace Prisma {
     status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
-    userId?: StringNullableFilter<"Job"> | string | null
+    userId?: StringFilter<"Job"> | string
   }
 
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -13323,7 +13297,7 @@ export namespace Prisma {
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    user?: UserCreateNestedOneWithoutJobsInput
+    user: UserCreateNestedOneWithoutJobsInput
     notes?: NoteCreateNestedManyWithoutJobInput
     reminders?: ReminderCreateNestedManyWithoutJobInput
   }
@@ -13338,7 +13312,7 @@ export namespace Prisma {
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    userId?: string | null
+    userId: string
     notes?: NoteUncheckedCreateNestedManyWithoutJobInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutJobInput
   }
@@ -13374,7 +13348,7 @@ export namespace Prisma {
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    user?: UserCreateNestedOneWithoutJobsInput
+    user: UserCreateNestedOneWithoutJobsInput
     tags?: TagCreateNestedManyWithoutJobsInput
     reminders?: ReminderCreateNestedManyWithoutJobInput
   }
@@ -13389,7 +13363,7 @@ export namespace Prisma {
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    userId?: string | null
+    userId: string
     tags?: TagUncheckedCreateNestedManyWithoutJobsInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutJobInput
   }
@@ -13420,7 +13394,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutJobsNestedInput
+    user?: UserUpdateOneRequiredWithoutJobsNestedInput
     tags?: TagUpdateManyWithoutJobsNestedInput
     reminders?: ReminderUpdateManyWithoutJobNestedInput
   }
@@ -13435,7 +13409,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     tags?: TagUncheckedUpdateManyWithoutJobsNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutJobNestedInput
   }
@@ -13450,7 +13424,7 @@ export namespace Prisma {
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    user?: UserCreateNestedOneWithoutJobsInput
+    user: UserCreateNestedOneWithoutJobsInput
     tags?: TagCreateNestedManyWithoutJobsInput
     notes?: NoteCreateNestedManyWithoutJobInput
   }
@@ -13465,7 +13439,7 @@ export namespace Prisma {
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    userId?: string | null
+    userId: string
     tags?: TagUncheckedCreateNestedManyWithoutJobsInput
     notes?: NoteUncheckedCreateNestedManyWithoutJobInput
   }
@@ -13496,7 +13470,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutJobsNestedInput
+    user?: UserUpdateOneRequiredWithoutJobsNestedInput
     tags?: TagUpdateManyWithoutJobsNestedInput
     notes?: NoteUpdateManyWithoutJobNestedInput
   }
@@ -13511,7 +13485,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     tags?: TagUncheckedUpdateManyWithoutJobsNestedInput
     notes?: NoteUncheckedUpdateManyWithoutJobNestedInput
   }
@@ -13741,7 +13715,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutJobsNestedInput
+    user?: UserUpdateOneRequiredWithoutJobsNestedInput
     notes?: NoteUpdateManyWithoutJobNestedInput
     reminders?: ReminderUpdateManyWithoutJobNestedInput
   }
@@ -13756,7 +13730,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     notes?: NoteUncheckedUpdateManyWithoutJobNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutJobNestedInput
   }
@@ -13771,7 +13745,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
 
