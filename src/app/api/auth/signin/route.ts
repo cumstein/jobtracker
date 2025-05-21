@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import  prisma  from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ user });
-  } catch (err) {
+  } catch {
     return NextResponse.json({ err: "Internal error" }, { status: 500 });
   }
 }

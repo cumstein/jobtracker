@@ -64,10 +64,7 @@ export function JobForm({
       });
 
       if (!res.ok) throw new Error("Something went wrong");
-      {
-        isLoading && <Spinner />;
-      }
-
+      isLoading && <Spinner />;
       toast.success("Well Done!");
       router.push("/dashboard");
       router.refresh();
