@@ -1,4 +1,4 @@
-import {prisma} from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export const jobResolvers = {
   Query: {
@@ -32,15 +32,18 @@ export const jobResolvers = {
         tagIds,
         userId,
       } = args;
+      const data: any = {
+        title: title,
+        company: company ?? "",
+        description: description ?? "",
+        location: location ?? "",
+        tags: tagIds ? { connect: tagIds.map((id) => ({ id })) } : undefined,
+      };
+      if (userId) {
+        data.user = { connect: { id: userId } };
+      }
       return prisma.job.create({
-        data: {
-          title: title,
-          company: company ?? "",
-          description: description ?? "",
-          location: location ?? "",
-          ...(args.userId && { user: { connect: { id: userId } } }),
-          tags: tagIds ? { connect: tagIds.map((id) => ({ id })) } : undefined,
-        },
+        data,
       });
     },
   },
