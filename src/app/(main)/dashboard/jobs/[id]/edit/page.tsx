@@ -3,13 +3,9 @@ import { JobForm } from "@/components/jobs/JobForm";
 import { getJobById } from "@/lib/jobs";
 import { notFound } from "next/navigation";
 
-interface EditPageProps {
-  params: {
-    id: string;
-  };
-}
-export default async function EditJobPage({ params }: EditPageProps) {
-  const job = await getJobById(params.id);
+export default async function EditJobPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const job = await getJobById(id);
 
   if (!job) return notFound();
 
@@ -25,7 +21,7 @@ export default async function EditJobPage({ params }: EditPageProps) {
           location: job.location ?? undefined,
           url: job.url ?? undefined,
         }}
-        jobId={params.id}
+        jobId={id}
       />
     </div>
   );
