@@ -1,2 +1,2 @@
-./src/generated/prisma/*
-./src/lib/graphql/*
+src/generated/prisma/*
+src/lib/graphql/*

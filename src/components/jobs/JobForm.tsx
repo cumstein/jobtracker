@@ -49,10 +49,7 @@ export function JobForm({
     },
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const onSubmit = async (data: JobFormValues) => {
-    setIsLoading(true);
 
     try {
       const res = await fetch(jobId ? `/api/jobs/${jobId}` : "/api/jobs", {
@@ -64,7 +61,6 @@ export function JobForm({
       });
 
       if (!res.ok) throw new Error("Something went wrong");
-      isLoading && <Spinner />;
       toast.success("Well Done!");
       router.push("/dashboard");
       router.refresh();
@@ -72,7 +68,7 @@ export function JobForm({
       console.error(err);
       toast.error("Error!");
     } finally {
-      setIsLoading(false);
+      console.log("success");
     }
   };
 
