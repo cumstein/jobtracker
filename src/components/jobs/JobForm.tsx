@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { jobSchema } from "@/lib/validation/jobSchema";
 import { z } from "zod";
@@ -26,14 +26,16 @@ type JobFormProps = {
   onSuccess?: () => void;
 };
 
-export function JobForm({ initialData, jobId, onSuccess }: JobFormProps & { jobId?: string }) {
+export function JobForm({
+  initialData,
+  jobId,
+}: JobFormProps & { jobId?: string }) {
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
     setValue,
-    reset,
     formState: { errors, isSubmitting },
   } = useForm<JobFormValues>({
     resolver: zodResolver(jobSchema),
@@ -47,32 +49,35 @@ export function JobForm({ initialData, jobId, onSuccess }: JobFormProps & { jobI
     },
   });
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
- const onSubmit = async (data: JobFormValues) => {
-  setIsLoading(true);
+  const onSubmit = async (data: JobFormValues) => {
+    setIsLoading(true);
 
-  try {
-    const res = await fetch(jobId ? `/api/jobs/${jobId}` : "/api/jobs", {
-      method: jobId ? "PATCH" : "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const res = await fetch(jobId ? `/api/jobs/${jobId}` : "/api/jobs", {
+        method: jobId ? "PATCH" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    if (!res.ok) throw new Error("Something went wrong");
+      if (!res.ok) throw new Error("Something went wrong");
+      {
+        isLoading && <Spinner />;
+      }
 
- toast.success("Edited Successfully")
-    router.push("/dashboard");
-    router.refresh();
-  } catch (err) {
-    console.error(err);
-    toast.error("Error!")
-  } finally {
-    setIsLoading(false);
-  }
-};
+      toast.success("Well Done!");
+      router.push("/dashboard");
+      router.refresh();
+    } catch (err) {
+      console.error(err);
+      toast.error("Error!");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

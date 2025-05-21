@@ -13,13 +13,19 @@ export default function SignUpForm() {
   const router = useRouter();
   const [error, setError] = useState("");
 
+  interface SignUpFormData {
+    name: string;
+    email: string;
+    password: string;
+  }
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm();
+  } = useForm<SignUpFormData>();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: SignUpFormData) => {
     setError("");
 
     const res = await fetch("/api/auth/signup", {

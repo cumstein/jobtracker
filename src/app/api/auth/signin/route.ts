@@ -28,6 +28,6 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ user });
   } catch (err) {
-    return NextResponse.json({ error: "Internal error" }, { status: 500 });
+    return NextResponse.json({ err: "Internal error" }, { status: 500 });
   }
 }

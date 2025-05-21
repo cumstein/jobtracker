@@ -23,6 +23,6 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    return NextResponse.json({ error: "Internal Sever Error" }, { status: 500 });
+    return NextResponse.json({ err: "Internal Sever Error" }, { status: 500 });
   }
 }

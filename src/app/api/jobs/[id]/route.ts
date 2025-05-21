@@ -5,7 +5,6 @@ export async function PATCH(request: NextRequest) {
   try {
     const url = new URL(request.url);
     const id = url.pathname.split("/").pop();
-    id;
     if (!id) {
       return new NextResponse("Missing job ID", { status: 400 });
     }

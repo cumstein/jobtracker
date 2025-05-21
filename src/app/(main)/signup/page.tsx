@@ -8,7 +8,7 @@ import Spinner from "@/components/ui/spinner";
 import SignUpHeader from "@/components/custom/SignUpHeader";
 
 export default function SignupPage() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   useEffect(() => {

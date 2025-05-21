@@ -9,18 +9,22 @@ import { useState } from "react";
 import { toast } from "sonner";
 import Spinner from "../ui/spinner";
 import Link from "next/link";
-import { Lock } from "lucide-react";
 
 export default function Signin() {
   const router = useRouter();
   const [error, setError] = useState("");
+  type SigninFormData = {
+    email: string;
+    password: string;
+  };
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm();
+  } = useForm<SigninFormData>();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: SigninFormData) => {
     setError("");
     const res = await signIn("credentials", {
       ...data,
@@ -55,7 +59,7 @@ export default function Signin() {
         {isSubmitting ? <Spinner /> : "Sign In"}
       </Button>
       <p className="text-sm text-center mt-4">
-        Don't have an account?
+        Don&#39;t have an account?
         <Link href="/signup" className="text-blue-600 hover:underline"> Sign up here
         </Link>
       </p>

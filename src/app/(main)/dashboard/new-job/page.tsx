@@ -1,7 +1,6 @@
 "use client";
 
 import { JobForm } from "@/components/jobs/JobForm";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
 
 export default function NewJobPage() {

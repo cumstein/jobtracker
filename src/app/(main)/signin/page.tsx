@@ -8,7 +8,7 @@ import SignInHeader from "@/components/custom/SignInHeader";
 import Spinner from "@/components/ui/spinner";
 
 export default function SigninPage() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
