@@ -46,6 +46,10 @@ export default function JobDetailsWrapper({ job }: { job: Job }) {
           <h3 className="text-lg font-medium">Status</h3>
           <p className="text-sm text-primary">{job.status}</p>
         </div>
+        <div className="space-y-1">
+          <h3 className="text-lg font-medium">Description</h3>
+          <p className="text-sm text-primary">{job.description}</p>
+        </div>
 
         {job.url && (
           <div className="space-y-1">
