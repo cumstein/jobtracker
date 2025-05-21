@@ -1,98 +1,16 @@
-import { createYoga } from 'graphql-yoga';
-import { schema } from '@graphql/schema';
-import { NextRequest } from 'next/server';
+import { createYoga } from "graphql-yoga";
+import { schema } from "@graphql/schema";
 
-const yoga = createYoga<{
-  req: NextRequest
-}>({
+const yoga = createYoga({
   schema,
-  graphqlEndpoint: '/api/graphql',
-  fetchAPI: {Request, Response },
+  graphqlEndpoint: "/api/graphql",
+  fetchAPI: { Request, Response },
 });
 
-export { yoga as GET, yoga as POST }
+export async function GET(request: Request) {
+  return yoga(request);
+}
 
-
-
-
-
-// import { createYoga } from "graphql-yoga";
-// import { schema } from "@/lib/graphql/schema";
-
-
-
-
-// // import { createSchema } from "graphql-yoga";
-
-// const yoga = createYoga({
-//   graphqlEndpoint: "/api/graphql",
-//   schema,
-//   fetchAPI: { Request, Response },
-// });
-
-// export {yoga as GET, yoga as POST}
-
-// const jobs = [
-//   {
-//     id: "1",
-//     title: "Frontend Developer",
-//     company: "OpenAI",
-//     location: "Remote",
-//     createdAt: new Date().toISOString(),
-//   },
-// ];
-
-// const typeDefs = `
-//   type Job {
-//     id: ID!
-//     title: String!
-//     company: String!
-//     location: String
-//     createdAt: String!
-//   }
-
-//   type Query {
-//     getAllJobs: [Job!]!
-//     getJob(id: ID!): Job
-//   }
-
-//   type Mutation {
-//     createJob(title: String!, company: String!, location: String): Job!
-//   }
-// `;
-
-// const resolvers = {
-//   Query: {
-//     getAllJobs: () => jobs,
-//     getJob: (_: any, { id }: { id: string }) =>
-//       jobs.find((job) => job.id === id),
-//   },
-//   Mutation: {
-//     createJob: (_: any, { title, company, location }: any) => {
-//       const newJob = {
-//         id: String(jobs.length + 1),
-//         title,
-//         company,
-//         location,
-//         createdAt: new Date().toISOString(),
-//       };
-//       jobs.push(newJob);
-//       return newJob;
-//     },
-//   },
-// };
-
-// const schema = createSchema({ typeDefs, resolvers });
-
-// // const yoga = createYoga({
-// //   schema,
-// //   graphqlEndpoint: "/api/graphql",
-// //   fetchAPI: { Request, Response },
-// // });
-
-// export const { handleRequest } = createYoga({
-//   graphqlEndpoint: "/api/graphql",
-//   schema,
-//   fetchAPI: { Request, Response },
-// });
-// export { handleRequest as GET, handleRequest as POST };
+export async function POST(request: Request) {
+  return yoga(request);
+}
