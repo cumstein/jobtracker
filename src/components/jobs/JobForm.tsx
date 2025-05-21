@@ -17,15 +17,16 @@ import {
 import { toast } from "sonner";
 import Spinner from "../ui/spinner";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 type JobFormValues = z.infer<typeof jobSchema>;
 
 type JobFormProps = {
-  initialData?: JobFormValues;
+  initialData?: JobFormValues & { id?: string | number };
   onSuccess?: () => void;
 };
 
-export function JobForm({ initialData, onSuccess }: JobFormProps) {
+export function JobForm({ initialData, jobId, onSuccess }: JobFormProps & { jobId?: string }) {
   const router = useRouter();
 
   const {
@@ -37,48 +38,68 @@ export function JobForm({ initialData, onSuccess }: JobFormProps) {
   } = useForm<JobFormValues>({
     resolver: zodResolver(jobSchema),
     defaultValues: {
-      ...initialData,
+      title: initialData?.title || "",
+      company: initialData?.company || "",
+      description: initialData?.description || "",
+      location: initialData?.location || "",
+      url: initialData?.url || "",
       status: initialData?.status || "APPLIED",
     },
   });
 
-  const onSubmit: SubmitHandler<JobFormValues> = async (data) => {
-    const res = await fetch("/api/jobs", {
-      method: "POST",
+  const [isLoading, setIsLoading] = useState(false)
+
+ const onSubmit = async (data: JobFormValues) => {
+  setIsLoading(true);
+
+  try {
+    const res = await fetch(jobId ? `/api/jobs/${jobId}` : "/api/jobs", {
+      method: jobId ? "PATCH" : "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
 
-    if (res.ok) {
-      toast.success("Job added successfully");
-      reset();               
-      router.refresh();      
-      onSuccess?.();
-    } else {
-      const errorData = await res.json();
-      console.error("Error creating job:", errorData);
-      toast.error("Failed to create job. Please try again.");
-    }
-  };
+    if (!res.ok) throw new Error("Something went wrong");
+
+ toast.success("Edited Successfully")
+    router.push("/dashboard");
+    router.refresh();
+  } catch (err) {
+    console.error(err);
+    toast.error("Error!")
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <Input placeholder="Job title" {...register("title")} />
-      {errors.title && <p className="text-sm text-red-500">{errors.title.message}</p>}
+      {errors.title && (
+        <p className="text-sm text-red-500">{errors.title.message}</p>
+      )}
 
       <Input placeholder="Company name" {...register("company")} />
-      {errors.company && <p className="text-sm text-red-500">{errors.company.message}</p>}
+      {errors.company && (
+        <p className="text-sm text-red-500">{errors.company.message}</p>
+      )}
 
       <Textarea placeholder="Description" {...register("description")} />
-      {errors.description && <p className="text-sm text-red-500">{errors.description.message}</p>}
+      {errors.description && (
+        <p className="text-sm text-red-500">{errors.description.message}</p>
+      )}
 
       <Input placeholder="Location (optional)" {...register("location")} />
-      {errors.location && <p className="text-sm text-red-500">{errors.location.message}</p>}
+      {errors.location && (
+        <p className="text-sm text-red-500">{errors.location.message}</p>
+      )}
 
       <Input placeholder="Application URL (optional)" {...register("url")} />
-      {errors.url && <p className="text-sm text-red-500">{errors.url.message}</p>}
+      {errors.url && (
+        <p className="text-sm text-red-500">{errors.url.message}</p>
+      )}
 
       <Select
         defaultValue={initialData?.status || "APPLIED"}
@@ -97,14 +118,16 @@ export function JobForm({ initialData, onSuccess }: JobFormProps) {
           <SelectItem value="ARCHIVED">Archived</SelectItem>
         </SelectContent>
       </Select>
-      {errors.status && <p className="text-sm text-red-500">{errors.status.message}</p>}
+      {errors.status && (
+        <p className="text-sm text-red-500">{errors.status.message}</p>
+      )}
 
       <Button
         type="submit"
         disabled={isSubmitting}
         className="w-full mt-4 text-zinc-100 dark:text-zinc-800 bg-zinc-900 dark:bg-zinc-100 p-2 rounded-xl hover:bg-primary/90 transition"
       >
-        {isSubmitting ? <Spinner /> : "Create Job"}
+        {isSubmitting ? <Spinner /> : initialData ? "Update Job" : "Create Job"}
       </Button>
     </form>
   );

@@ -9,10 +9,18 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { JobForm } from "./JobForm";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AddJobSheet() {
+  const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
+  function handleSuccess() {
+    setIsOpen(false);
+    router.refresh()
+  }
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button className="w-full md:w-auto">Add Job</Button>
       </SheetTrigger>
@@ -21,7 +29,7 @@ export default function AddJobSheet() {
           <SheetTitle>Add a New Job</SheetTitle>
         </SheetHeader>
         <div className="mt-4">
-          <JobForm />
+          <JobForm onSuccess={handleSuccess} />
         </div>
       </SheetContent>
     </Sheet>
