@@ -22,15 +22,17 @@ export async function PATCH(
   }
 }
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest) {
   try {
+    const url = new URL(request.url);
+    const id = url.pathname.split("/").pop();
+
+    if (!id) {
+      return new NextResponse("Missing job ID", { status: 400 });
+    }
+
     const job = await prisma.job.delete({
-      where: {
-        id: params.id,
-      },
+      where: { id },
     });
 
     return NextResponse.json(job);
