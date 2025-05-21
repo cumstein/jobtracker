@@ -7,7 +7,7 @@ const yoga = createYoga<{
 }>({
   schema,
   graphqlEndpoint: '/api/graphql',
-  fetchAPI: { Response },
+  fetchAPI: {Request, Response },
 });
 
 export { yoga as GET, yoga as POST }
