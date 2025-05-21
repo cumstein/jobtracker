@@ -5,7 +5,7 @@ Track your job hunt, manage applications, and stay organized.
 
 ## Demo
 
-[Live Demo](https://jobtracker-cumstein.vercel.app) Not Deployed Yet
+[Live Demo](https://jobtracker-cumstein.vercel.app)
 
 ## Screenshots
 ![Dashboard](./public/screenshots/dashboard.png)
