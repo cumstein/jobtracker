@@ -1,15 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
-import  prisma  from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PATCH(request: NextRequest) {
   try {
-    const body = await req.json();
+    const url = new URL(request.url);
+    const id = url.pathname.split("/").pop();
+    id;
+    if (!id) {
+      return new NextResponse("Missing job ID", { status: 400 });
+    }
+
+    const body = await request.json();
 
     const updated = await prisma.job.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         ...body,
       },
