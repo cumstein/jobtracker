@@ -6,6 +6,7 @@ import Navbar from "@/components/custom/Navbar";
 import { ThemeProvider } from "@/theme/theme-provider";
 import { Toaster } from "sonner";
 import { NavbarWrapper } from "@/components/custom/NavbarWrapper";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,9 +50,31 @@ export default function RootLayout({
               </div>
             </main>
           </AuthSessionProvider>
-          <footer>
-            <p className="flex items-center justify-center px-4 py-2 shadow-md">
-              &copy; Developed by Cumstein
+          <footer className="mt-20 border-t pt-6 pb-8 text-center text-sm text-muted-foreground">
+            <p>
+              Designed & developed with love by{" "}
+              <span className="font-semibold">Cumstein</span>
+            </p>
+            <div className="mt-2 flex justify-center gap-4 text-xl">
+              <a
+                href="https://github.com/cumstein"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors"
+              >
+                <FaGithub />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/kamyab-hosseinzadeh/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors"
+              >
+                <FaLinkedin />
+              </a>
+            </div>
+            <p className="mt-2 text-xs">
+              &copy; {new Date().getFullYear()} All rights reserved.
             </p>
           </footer>
         </ThemeProvider>
