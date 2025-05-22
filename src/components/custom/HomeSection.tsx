@@ -28,7 +28,7 @@ function HomeSection() {
           </FadeIn>
           <FadeIn>
             <blockquote className="italic text-muted-foreground text-sm">
-              "You can't improve what you don't track."
+              &quot;You can&apos;t improve what you don&apos;t track.&quot;
             </blockquote>
           </FadeIn>
         </div>
