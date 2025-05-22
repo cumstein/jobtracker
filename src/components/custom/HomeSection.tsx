@@ -44,7 +44,7 @@ function HomeSection() {
           <FadeIn>
             <div>
               <h3 className="text-3xl font-bold">30+</h3>
-              <p className="text-muted-foreground text-sm">Notes & Reminders</p>
+              <p className="text-muted-foreground text-sm">Notes &amp; Reminders</p>
             </div>
           </FadeIn>
           <FadeIn>
