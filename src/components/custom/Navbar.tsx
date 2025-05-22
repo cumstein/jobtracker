@@ -20,7 +20,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed w-full flex items-center justify-between px-4 py-2 shadow-md">
+    <header className="w-full flex items-center justify-between px-4 py-2 shadow-md">
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger asChild>
           <Button variant="ghost" size="icon">
