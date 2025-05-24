@@ -130,7 +130,7 @@ export function JobForm({
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="mt-4 mx-auto w-1/4 mb-2 block text-zinc-100 dark:text-zinc-800 bg-zinc-900 dark:bg-zinc-100 p-2 rounded-xl hover:bg-primary/90 transition"
+        className="mt-4 mx-auto w-1/3 mb-2 block text-zinc-100 dark:text-zinc-800 bg-zinc-900 dark:bg-zinc-100 p-2 rounded-xl hover:bg-primary/90 transition"
       >
         {isSubmitting ? <Spinner /> : initialData ? "Update Job" : "Create Job"}
       </Button>

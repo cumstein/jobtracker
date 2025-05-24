@@ -13,7 +13,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="p-4 space-y-6 flex flex-col justify-center items center">
-      <h1 className="text-2xl font-semibold text-center text-zinc-800 dark:text-zinc-100">
+      <h1 className="text-2xl font-semibold text-center text-zinc-800 dark:text-zinc-100 -mt-12">
         Your Jobs
       </h1>
       <StatsSummary stats={stats} />
