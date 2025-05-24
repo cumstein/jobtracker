@@ -15,8 +15,8 @@ export const motivationalQuotes = [
   "Don't watch the clock; do what it does — keep going.",
   "Success usually comes to those who are too busy to be looking for it.",
   "Dream big. Work hard. Make it happen.",
-  "The harder you work for something, the greater you’ll feel when you achieve it.",
-  "Opportunities don’t happen. You create them.",
+  "The harder you work for something, the greater you&rsquo;ll feel when you achieve it.",
+  "Opportunities don&rsquo;t happen. You create them.",
   "Failure is simply the opportunity to begin again, this time more intelligently.",
   "You don't have to be great to start, but you have to start to be great.",
 ];
