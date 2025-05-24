@@ -24,11 +24,14 @@ type JobFormValues = z.infer<typeof jobSchema>;
 type JobFormProps = {
   initialData?: JobFormValues & { id?: string | number };
   onSuccess?: () => void;
+  closeSheet?: () => void;
 };
 
 export function JobForm({
   initialData,
   jobId,
+  closeSheet,
+  onSuccess,
 }: JobFormProps & { jobId?: string }) {
   const router = useRouter();
 
@@ -36,6 +39,7 @@ export function JobForm({
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<JobFormValues>({
     resolver: zodResolver(jobSchema),
@@ -50,7 +54,6 @@ export function JobForm({
   });
 
   const onSubmit = async (data: JobFormValues) => {
-
     try {
       const res = await fetch(jobId ? `/api/jobs/${jobId}` : "/api/jobs", {
         method: jobId ? "PATCH" : "POST",
@@ -61,14 +64,18 @@ export function JobForm({
       });
 
       if (!res.ok) throw new Error("Something went wrong");
+
       toast.success("Well Done!");
+      
+      if (closeSheet) closeSheet();
+      onSuccess?.()
       router.push("/dashboard");
       router.refresh();
+
+      reset();
     } catch (err) {
       console.error(err);
       toast.error("Error!");
-    } finally {
-      console.log("success");
     }
   };
 
@@ -123,7 +130,7 @@ export function JobForm({
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full mt-4 text-zinc-100 dark:text-zinc-800 bg-zinc-900 dark:bg-zinc-100 p-2 rounded-xl hover:bg-primary/90 transition"
+        className="mt-4 mx-auto w-1/4 mb-2 block text-zinc-100 dark:text-zinc-800 bg-zinc-900 dark:bg-zinc-100 p-2 rounded-xl hover:bg-primary/90 transition"
       >
         {isSubmitting ? <Spinner /> : initialData ? "Update Job" : "Create Job"}
       </Button>

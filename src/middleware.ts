@@ -12,6 +12,7 @@ export const config = {
     "/profile/:path*",
     "/settings/:path*",
     "/jobs/:path*",
+    "/stats/:path*",
     "/protected/:path*",
   ],
 };
