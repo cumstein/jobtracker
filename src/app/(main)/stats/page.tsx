@@ -2,10 +2,13 @@ import { createSupabaseServerClient } from "@/lib/supabaseClient";
 import { getAuthSession } from "@/lib/auth";
 import { StatCard } from "@/components/stats/StatCard";
 import { StatsPieChart } from "@/components/stats/StatsPieChart";
+import { redirect } from "next/navigation";
 
 export default async function StatsPage() {
   const session = await getAuthSession();
-
+ if (!session) {
+    redirect("/signin");
+  }
   const supabase = await createSupabaseServerClient();
 
   const { data: jobs, error } = await supabase

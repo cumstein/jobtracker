@@ -1,12 +1,22 @@
 import { createSupabaseServerClient } from "@/lib/supabaseClient";
+import { getAuthSession } from "./auth";
+import { redirect } from "next/navigation";
 
 export async function getJobStats(userId: string) {
   const supabase = await createSupabaseServerClient();
-  const { data } = await supabase.from("Job").select("status").eq("userId", userId);
+  const session = await getAuthSession();
+  if (!session) {
+    redirect("/signin");
+  }
+  const { data } = await supabase
+    .from("Job")
+    .select("*")
+    .eq("userId", session?.user.id);
 
   if (!data) return { Applied: 0, Interview: 0, Offer: 0, Rejected: 0 };
 
-  const countByStatus = (status: string) => data.filter((j) => j.status === status).length;
+  const countByStatus = (status: string) =>
+    data.filter((j) => j.status === status).length;
 
   return {
     Applied: countByStatus("APPLIED"),
