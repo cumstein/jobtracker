@@ -1,13 +1,11 @@
 import { createSupabaseServerClient } from "@/lib/supabaseClient";
 import { getAuthSession } from "./auth";
-import { redirect } from "next/navigation";
+
 
 export async function getJobStats(userId: string) {
   const supabase = await createSupabaseServerClient();
   const session = await getAuthSession();
-  if (!session) {
-    redirect("/signin");
-  }
+
   const { data } = await supabase
     .from("Job")
     .select("*")
