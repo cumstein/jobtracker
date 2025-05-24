@@ -8,7 +8,7 @@ export function MotivationalCard() {
   return (
     <Card className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg">
       <CardContent className="py-6 text-center">
-        <p className="text-lg font-semibold italic">"{quote}"</p>
+        <p className="text-lg font-semibold italic">&quot;{quote}&quot;</p>
       </CardContent>
     </Card>
   );
