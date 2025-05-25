@@ -1,25 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Job } from "@/generated/prisma";
 import Link from "next/link";
+import { useState } from "react";
 import Spinner from "../ui/spinner";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Info, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
-export default function JobList() {
-  const [jobs, setJobs] = useState<Job[] | null>(null);
+type JobListProps = {
+  jobs: Job[];
+};
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      const res = await fetch("/api/jobs");
-      const data = await res.json();
-      setJobs(data);
-    };
-    fetchJobs();
-  }, []);
+export default function JobList({ jobs: initialJobs }: JobListProps) {
+  const [jobs, setJobs] = useState(initialJobs);
 
   if (!jobs) return <Spinner />;
 
@@ -45,7 +40,6 @@ export default function JobList() {
               className="p-4 bg-card rounded-2xl shadow-sm border hover:shadow-md transition"
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                {/* Info Section */}
                 <div className="flex-1">
                   <h3 className="text-base font-semibold text-foreground">
                     {job.title}
@@ -80,7 +74,7 @@ export default function JobList() {
                     size="sm"
                     onClick={async () => {
                       const confirmed = confirm(
-                      `  Are you sure you want to delete "${job.title}"?`
+                        `Are you sure you want to delete "${job.title}"?`
                       );
                       if (!confirmed) return;
                       const res = await fetch(`/api/jobs/${job.id}`, {
