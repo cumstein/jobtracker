@@ -56,13 +56,14 @@ export default function PaginationControls({
             whileTap={{ scale: 0.95 }}
             key={page}
             onClick={() => goToPage(page)}
-            className={`px-3 py-1 rounded-md text-sm font-medium transition-all
-        ${
-          page === currentPage
-            ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black"
-            : "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700"
-        }
-      `}
+            className={`
+    px-2 py-0.5 text-xs sm:px-3 sm:py-1 sm:text-sm rounded-md font-medium transition-all
+    ${
+      page === currentPage
+        ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black"
+        : "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700"
+    }
+  `}
           >
             {page}
           </motion.button>
