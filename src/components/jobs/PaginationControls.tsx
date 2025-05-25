@@ -8,6 +8,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
+import getPaginationRange from "@/lib/utils/getPaginationRage";
 
 type PaginationControlsProps = {
   currentPage: number;
@@ -31,10 +32,10 @@ export default function PaginationControls({
     router.push(`?${params.toString()}`);
   };
 
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pages = getPaginationRange(currentPage, totalPages);
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-6 flex-wrap">
+    <div className="flex items-center justify-center gap-2 mt-6 flex-nowrap overflow-x-auto scrollbar-hide px-2">
       <PageButton
         disabled={isFirst}
         onClick={() => goToPage(1)}
@@ -48,23 +49,32 @@ export default function PaginationControls({
         label="Prev"
       />
 
-      {pages.map((page) => (
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          key={page}
-          onClick={() => goToPage(page)}
-          className={`px-3 py-1 rounded-md text-sm font-medium transition-all
-            ${
-              page === currentPage
-                ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black"
-                : "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700"
-            }
-          `}
-        >
-          {page}
-        </motion.button>
-      ))}
+      {pages.map((page, idx) =>
+        typeof page === "number" ? (
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            key={page}
+            onClick={() => goToPage(page)}
+            className={`px-3 py-1 rounded-md text-sm font-medium transition-all
+        ${
+          page === currentPage
+            ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black"
+            : "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700"
+        }
+      `}
+          >
+            {page}
+          </motion.button>
+        ) : (
+          <span
+            key={`ellipsis-${idx}`}
+            className="px-2 text-zinc-400 select-none"
+          >
+            ...
+          </span>
+        )
+      )}
 
       <PageButton
         disabled={isLast}
