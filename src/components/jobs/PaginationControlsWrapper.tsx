@@ -14,13 +14,12 @@ export function PaginationControlsWrapper({
   const searchParams = useSearchParams();
   const limit = searchParams.get("limit") || "5";
 
-  const handlePageChange = (newPage: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", String(newPage));
-    params.set("limit", limit);
-    router.push(`?${params.toString()}`);
-  };
-
+const handlePageChange = (newPage: number) => {
+  const params = new URLSearchParams(searchParams.toString());
+  params.set("page", String(newPage));
+  params.set("limit", limit);
+  router.push(`?${params.toString()}`, { scroll: false });
+};
   return (
     <PaginationControls
       currentPage={currentPage}
