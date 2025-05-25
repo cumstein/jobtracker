@@ -1,21 +1,16 @@
-"use client";
-
 import { Job } from "@/generated/prisma";
 import Link from "next/link";
-import { useState } from "react";
 import Spinner from "../ui/spinner";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { Info, Pencil, Trash2 } from "lucide-react";
-import { toast } from "sonner";
+import { Info, Pencil } from "lucide-react";
+import DeleteJobButton from "./DeleteJobButton";
 
 type JobListProps = {
   jobs: Job[];
 };
 
-export default function JobList({ jobs: initialJobs }: JobListProps) {
-  const [jobs, setJobs] = useState(initialJobs);
-
+export default function JobList({ jobs }: JobListProps) {
   if (!jobs) return <Spinner />;
 
   return (
@@ -54,8 +49,6 @@ export default function JobList({ jobs: initialJobs }: JobListProps) {
                     {job.status.toLowerCase()}
                   </Badge>
                 </div>
-
-                {/* Actions */}
                 <div className="flex flex-wrap gap-2 sm:gap-3 justify-start sm:justify-end">
                   <Link href={`/dashboard/jobs/${job.id}/edit`}>
                     <Button variant="secondary" size="sm">
@@ -69,30 +62,7 @@ export default function JobList({ jobs: initialJobs }: JobListProps) {
                       Details
                     </Button>
                   </Link>
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={async () => {
-                      const confirmed = confirm(
-                        `Are you sure you want to delete "${job.title}"?`
-                      );
-                      if (!confirmed) return;
-                      const res = await fetch(`/api/jobs/${job.id}`, {
-                        method: "DELETE",
-                      });
-                      if (res.ok) {
-                        toast.success("Job Deleted Successfully");
-                        setJobs((prev) =>
-                          prev?.filter((j) => j.id !== job.id) || []
-                        );
-                      } else {
-                        toast.error("Failed to delete job");
-                      }
-                    }}
-                  >
-                    <Trash2 className="w-4 h-4 mr-1" />
-                    Delete
-                  </Button>
+                  <DeleteJobButton jobId={job.id} jobTitle={job.title} />
                 </div>
               </div>
             </li>
