@@ -11,6 +11,45 @@ export const jobResolvers = {
         include: { tags: true, user: true },
       });
     },
+    filteredJobs: async (_: any, { filters }: any, { user }: any) => {
+      if (!user) throw new Error("Unauthorized");
+
+      const { search, status, tags, page = 1, limit = 5 } = filters;
+      const skip = (page - 1) * limit;
+
+      const where: any = {
+        userId: user.id,
+      };
+
+      if (search) {
+        where.title = { contains: search, mode: "insensitive" };
+      }
+
+      if (status) {
+        where.status = status;
+      }
+
+      if (tags && tags.length > 0) {
+        where.tags = {
+          some: {
+            id: { in: tags },
+          },
+        };
+      }
+
+      const [jobs, count] = await Promise.all([
+        prisma.job.findMany({
+          where,
+          skip,
+          take: limit,
+          orderBy: { createdAt: "desc" },
+          include: { tags: true, user: true },
+        }),
+        prisma.job.count({ where }),
+      ]);
+
+      return { jobs, count };
+    },
   },
   Mutation: {
     createJob: async (

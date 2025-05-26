@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/theme/theme-provider";
 import { Toaster } from "sonner";
 import { NavbarWrapper } from "@/components/custom/NavbarWrapper";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import Providers from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,7 +46,7 @@ export default function RootLayout({
             </NavbarWrapper>
             <main className="flex flex-col justify-between min-h-screen">
               <div className="w-full mx-auto max-w-3xl px-4 mt-20">
-                {children}
+                <Providers>{children}</Providers>
                 <Toaster richColors position="bottom-center" />
               </div>
             </main>

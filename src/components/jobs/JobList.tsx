@@ -1,20 +1,46 @@
-import { Job } from "@/generated/prisma";
+"use client";
+
+import React from "react";
 import Link from "next/link";
-import Spinner from "../ui/spinner";
+
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Info, Pencil } from "lucide-react";
 import DeleteJobButton from "./DeleteJobButton";
+import { useJobFilters } from "@/lib/store/useJobFilters";
+import { useQuery } from "@apollo/client";
+import { GET_FILTERED_JOBS } from "@graphql/queries";
+import JobListSkeleton from "./JobListSkeleton";
 
-type JobListProps = {
-  jobs: Job[];
+type JobListItem = {
+  id: string;
+  title: string;
+  company: string;
+  location?: string;
+  status: string;
 };
 
-export default function JobList({ jobs }: JobListProps) {
-  if (!jobs) return <Spinner />;
+export default function JobList() {
+  const { search, status, tags, page } = useJobFilters();
+  const { data, loading, error } = useQuery(GET_FILTERED_JOBS, {
+  variables: {
+    filters: {
+      search ,
+      status,
+      tags,
+      page,
+      limit: 5,
+    },
+  },
+});
+
+  if (loading) return <JobListSkeleton />;
+  if (error) return <div className="text-red-500">Error loading jobs: {error.message}</div>;
+
+  const jobs = data?.filteredJobs?.jobs || [];
 
   return (
-    <div className="mt-6 space-y-4">
+    <div className="mt-6 space-y-4 min-h-[300px]">
       {jobs.length === 0 ? (
         <div className="flex flex-col justify-center items-center gap-2">
           <p className="text-muted-foreground text-sm text-center">
@@ -29,7 +55,7 @@ export default function JobList({ jobs }: JobListProps) {
         </div>
       ) : (
         <ul className="space-y-4">
-          {jobs.map((job) => (
+          {jobs.map((job: JobListItem) => (
             <li
               key={job.id}
               className="p-4 bg-card rounded-2xl shadow-sm border hover:shadow-md transition"

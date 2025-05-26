@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -19,19 +18,10 @@ type PaginationControlsProps = {
 export default function PaginationControls({
   currentPage,
   totalPages,
+  onPageChange,
 }: PaginationControlsProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
   const isFirst = currentPage === 1;
   const isLast = currentPage === totalPages;
-
-  const goToPage = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", page.toString());
-    router.push(`?${params.toString()}`, { scroll: false });
-    
-  };
 
   const pages = getPaginationRange(currentPage, totalPages);
 
@@ -39,13 +29,13 @@ export default function PaginationControls({
     <div className="flex items-center justify-center gap-2 mt-6 flex-nowrap overflow-x-auto scrollbar-hide px-2">
       <PageButton
         disabled={isFirst}
-        onClick={() => goToPage(1)}
+        onClick={() => onPageChange(1)}
         icon={<ChevronsLeft size={18} />}
         label="First"
       />
       <PageButton
         disabled={isFirst}
-        onClick={() => goToPage(currentPage - 1)}
+        onClick={() => onPageChange(currentPage - 1)}
         icon={<ArrowLeft size={18} />}
         label="Prev"
       />
@@ -56,7 +46,7 @@ export default function PaginationControls({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             key={page}
-            onClick={() => goToPage(page)}
+            onClick={() => onPageChange(page)}
             className={`
     px-2 py-0.5 text-xs sm:px-3 sm:py-1 sm:text-sm rounded-md font-medium transition-all
     ${
@@ -80,13 +70,13 @@ export default function PaginationControls({
 
       <PageButton
         disabled={isLast}
-        onClick={() => goToPage(currentPage + 1)}
+        onClick={() => onPageChange(currentPage + 1)}
         icon={<ArrowRight size={18} />}
         label="Next"
       />
       <PageButton
         disabled={isLast}
-        onClick={() => goToPage(totalPages)}
+        onClick={() => onPageChange(totalPages)}
         icon={<ChevronsRight size={18} />}
         label="Last"
       />
