@@ -17,7 +17,6 @@ jest.mock('next/navigation', () => ({
     get: () => null,
   }),
 }));
-jest.mock('../jobs/DeleteJobButton', () => () => <button>Delete</button>);
 
 const dummyJobs: JobListItem[] = [
   {
