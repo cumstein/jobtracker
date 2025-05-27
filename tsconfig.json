@@ -29,6 +29,6 @@
       "@types/*": ["src/types/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "jest.setup.js", "jest.config.js"],
   "exclude": ["node_modules", "src/generated/prisma/*", "src/lib/graphql/*"]
 }

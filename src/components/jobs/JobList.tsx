@@ -12,7 +12,7 @@ import { useQuery } from "@apollo/client";
 import { GET_FILTERED_JOBS } from "@graphql/queries";
 import JobListSkeleton from "./JobListSkeleton";
 
-type JobListItem = {
+export type JobListItem = {
   id: string;
   title: string;
   company: string;
