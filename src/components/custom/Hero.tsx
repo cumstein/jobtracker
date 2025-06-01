@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="px-6 pt-8 pb-20 sm:pt-12 sm:pb-24 md:pt-16 md:pb-32 text-center max-w-3xl mx-auto">
+    <section className="px-6 pt-4 pb-20 sm:pt-12 sm:pb-24 md:pt-8 md:pb-32 text-center max-w-3xl mx-auto">
       <FadeIn>
         <div className="flex justify-center mb-8">
           <Image
@@ -12,7 +12,6 @@ export default function Hero() {
             alt="JobTracker Logo"
             width={192}
             height={192}
-            className="w-32 h-32 sm:w-48 sm:h-48"
             priority
           />
         </div>
