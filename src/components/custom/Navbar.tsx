@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 import { AnimatedSheetContent } from "./AnimatedSheetContent";
+import Image from "next/image";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -105,7 +106,7 @@ export default function Navbar() {
       </Sheet>
 
       <div className="flex items-center gap-3">
-        <BriefcaseBusiness />
+         <Image src="/job-tracker.svg" alt="logo" width={32} height={32} />
         <Link href="/" className="text-2xl font-semibold text-center">
           JobTracker
         </Link>

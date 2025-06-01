@@ -1,10 +1,21 @@
 import Link from "next/link";
 import FadeIn from "./FadeIn";
+import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="px-6 py-20 sm:py-24 md:py-32 text-center max-w-3xl mx-auto">
+    <section className="px-6 pt-8 pb-20 sm:pt-12 sm:pb-24 md:pt-16 md:pb-32 text-center max-w-3xl mx-auto">
       <FadeIn>
+        <div className="flex justify-center mb-8">
+          <Image
+            src="/job-tracker.svg"
+            alt="JobTracker Logo"
+            width={192}
+            height={192}
+            className="w-32 h-32 sm:w-48 sm:h-48"
+            priority
+          />
+        </div>
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6">
           Stay on top of your job applications.
         </h1>
