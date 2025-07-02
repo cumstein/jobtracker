@@ -10,6 +10,9 @@ Track your job hunt, manage applications, and stay organized.
 ## Screenshots
 ![Dashboard](./public/screenshots/dashboard.png)
 ![Job Detail](./public/screenshots/job-detail.png)
+![Responsive](./public/screenshots/responsive.png)
+![New Features](./public/screenshots/new.png)
+![Stats](./public/screenshots/stats.png)
 
 ## Features
 
